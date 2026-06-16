@@ -19,12 +19,12 @@ public:
             }
         }
 
-        return -1;
+        return 1;
     }
 };
 
 int main() {
-    vector<int> nums = {2, 2, 3, 2};
+    vector<int> nums = {2, 2, 7, 2};
 
     Solution obj;
     int ans = obj.singleNumber(nums);
