@@ -12,7 +12,9 @@ public:
     }
 };
 
+// Insert at Tail
 void insertAtTail(Node* &head, int data) {
+
     Node* newNode = new Node(data);
 
     if (head == NULL) {
@@ -29,7 +31,14 @@ void insertAtTail(Node* &head, int data) {
     temp->next = newNode;
 }
 
+// Print List
 void printList(Node* head) {
+
+    if (head == NULL) {
+        cout << "List is Empty" << endl;
+        return;
+    }
+
     Node* temp = head;
 
     while (temp != NULL) {
@@ -40,6 +49,7 @@ void printList(Node* head) {
     cout << "NULL" << endl;
 }
 
+// Find Middle Node (returns second middle for even nodes)
 Node* findMiddle(Node* head) {
 
     if (head == NULL)
@@ -49,33 +59,71 @@ Node* findMiddle(Node* head) {
     Node* fast = head;
 
     while (fast != NULL && fast->next != NULL) {
-        slow = slow->next;          // 1 step
-        fast = fast->next->next;    // 2 steps
+        slow = slow->next;
+        fast = fast->next->next;
     }
 
     return slow;
 }
 
+// Insert After Middle
 void insertAfterMiddle(Node* &head, int data) {
+
+    if (head == NULL) {
+        head = new Node(data);
+        return;
+    }
+
     Node* middle = findMiddle(head);
 
-    if (middle == NULL)
-        return;
-
     Node* newNode = new Node(data);
-    newNode-> next = middle->next;
+
+    newNode->next = middle->next;
     middle->next = newNode;
 }
 
+// Delete After Middle
 void deleteAfterMiddle(Node* &head) {
+
+    if (head == NULL)
+        return;
+
     Node* middle = findMiddle(head);
 
+    // Middle ke baad node hi nahi hai
     if (middle == NULL || middle->next == NULL)
         return;
 
-    Node* temp = middle->next;
-    middle->next = temp->next;
-    delete temp;
+    Node* nodeToDelete = middle->next;
+
+    middle->next = nodeToDelete->next;
+
+    delete nodeToDelete;
+}
+
+// Insert After Given Node
+void insertAfterNode(Node* node, int data) {
+
+    if (node == NULL)
+        return;
+
+    Node* newNode = new Node(data);
+
+    newNode->next = node->next;
+    node->next = newNode;
+}
+
+// Delete After Given Node
+void deleteAfterNode(Node* node) {
+
+    if (node == NULL || node->next == NULL)
+        return;
+
+    Node* nodeToDelete = node->next;
+
+    node->next = nodeToDelete->next;
+
+    delete nodeToDelete;
 }
 
 int main() {
@@ -88,12 +136,39 @@ int main() {
     insertAtTail(head, 40);
     insertAtTail(head, 50);
 
-    cout << "Linked List: ";
+    cout << "Original List:\n";
     printList(head);
 
+    // Find Middle
     Node* middle = findMiddle(head);
 
-    cout << "Middle Node: " << middle->data << endl;
+    if (middle != NULL)
+        cout << "Middle Node: " << middle->data << endl;
+
+    // Insert After Middle
+    insertAfterMiddle(head, 99);
+
+    cout << "\nAfter Insert After Middle:\n";
+    printList(head);
+
+    // Delete After Middle
+    deleteAfterMiddle(head);
+
+    cout << "\nAfter Delete After Middle:\n";
+    printList(head);
+
+    // Given Node = 20
+    Node* givenNode = head->next;
+
+    insertAfterNode(givenNode, 25);
+
+    cout << "\nAfter Insert After Node(20):\n";
+    printList(head);
+
+    deleteAfterNode(givenNode);
+
+    cout << "\nAfter Delete After Node(20):\n";
+    printList(head);
 
     return 0;
 }
