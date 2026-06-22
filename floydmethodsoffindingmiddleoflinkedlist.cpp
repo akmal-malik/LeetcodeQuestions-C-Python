@@ -67,6 +67,17 @@ void insertAfterMiddle(Node* &head, int data) {
     middle->next = newNode;
 }
 
+void deleteAfterMiddle(Node* &head) {
+    Node* middle = findMiddle(head);
+
+    if (middle == NULL || middle->next == NULL)
+        return;
+
+    Node* temp = middle->next;
+    middle->next = temp->next;
+    delete temp;
+}
+
 int main() {
 
     Node* head = NULL;
