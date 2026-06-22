@@ -56,6 +56,17 @@ Node* findMiddle(Node* head) {
     return slow;
 }
 
+void insertAfterMiddle(Node* &head, int data) {
+    Node* middle = findMiddle(head);
+
+    if (middle == NULL)
+        return;
+
+    Node* newNode = new Node(data);
+    newNode-> next = middle->next;
+    middle->next = newNode;
+}
+
 int main() {
 
     Node* head = NULL;
