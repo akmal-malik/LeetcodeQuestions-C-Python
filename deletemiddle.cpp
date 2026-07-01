@@ -12,9 +12,9 @@ struct Node {
     }
 };
 
-// Function to delete middle node from linked list.
-Node* deleteMid(Node* head) {
-  if (head == NULL || head -> next == NULL){
+
+Node* deleteMid(Node* head) { 
+  if (head == NULL || head -> next == NULL){ 
     delete head;
     head = NULL;
     return NULL;

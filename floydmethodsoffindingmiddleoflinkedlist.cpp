@@ -49,6 +49,49 @@ void printList(Node* head) {
     cout << "NULL" << endl;
 }
 
+
+Node* reverseList(Node* head){
+    Node* prev = NULL;
+    Node* curr = head;
+
+
+    while ( curr != NULL){
+        Node* nextNode = curr -> next;
+        curr -> next = prev;
+        prev = curr;
+        curr = nextNode;
+    }
+    return prev;
+}
+
+
+int findLengthofLoop(Node* head) {
+    Node* slow = head;
+    Node* fast = head;
+
+    while (fast != NULL && fast->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+
+        if (slow == fast) {
+            int count = 0;
+            Node* temp = slow;
+
+            while (true) {
+                count++;
+                temp = temp->next;
+
+                if (temp == slow)
+                    break;
+            }
+
+            return count;
+        }
+    }
+
+    return 0; 
+}
+
 // Find Middle Node (returns second middle for even nodes)
 Node* findMiddle(Node* head) {
 
@@ -64,6 +107,28 @@ Node* findMiddle(Node* head) {
     }
 
     return slow;
+}
+
+Node* findMiddle(Node* head) {
+    if (head == NULL)
+        return NULL;
+
+    int count = 0;
+    Node* temp = head;
+
+    // Count total nodes
+    while (temp != NULL) {
+        count++;
+        temp = temp->next;
+    }
+
+    // Move to middle node
+    temp = head;
+    for (int i = 0; i < count / 2; i++) {
+        temp = temp->next;
+    }
+
+    return temp;
 }
 
 // Insert After Middle
@@ -82,6 +147,24 @@ void insertAfterMiddle(Node* &head, int data) {
     middle->next = newNode;
 }
 
+void DeleteMiddleNode(Node* head){
+    if (head == NULL || head -> next == NULL){
+        delete head;
+        head = NULL;
+        return;
+    }
+    Node* slow = head;
+    Node* fast = head;
+    Node* prev = NULL;
+
+    while (fast != NULL && fast -> next != NULL){
+        prev = slow;
+        slow = slow -> next;
+        fast = fast -> next -> next;
+    }
+    prev -> next = slow -> next;
+    delete slow;
+}
 // Delete After Middle
 void deleteAfterMiddle(Node* &head) {
 
